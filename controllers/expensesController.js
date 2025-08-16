@@ -48,3 +48,42 @@ exports.addExpense = async (req, res) => {
   }
 };
 
+// ================controller for update ================
+exports.updateExpense = async (req, res) => {
+  try {
+    const updatedExpense = await Expense.findOneAndUpdate(
+      { _id: req.params.id, user: req.user._id }, 
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedExpense) {
+      return res.status(404).json({ error: "Expense not found or not authorized" });
+    }
+
+    res.json(updatedExpense);
+  } catch (error) {
+    console.error("Error updating expense:", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// ================controller for delete ================
+
+exports.deleteExpense = async (req, res) => {
+  try {
+    const deletedExpense = await Expense.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+
+    if (!deletedExpense) {
+      return res.status(404).json({ error: "Expense not found or not authorized" });
+    }
+
+    res.json({ message: "Expense deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting expense:", error);
+    res.status(400).json({ error: error.message });
+  }
+};
