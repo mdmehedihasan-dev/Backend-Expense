@@ -5,7 +5,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 const protect = async (req, res, next) => {
   let token;
-
+//  ========== Chheck Authorization Bearer token ============
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")

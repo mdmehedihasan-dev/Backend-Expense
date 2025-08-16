@@ -68,7 +68,7 @@ exports.updateExpense = async (req, res) => {
   }
 };
 
-// ================controller for delete ================
+// ============== controller for delete ================
 
 exports.deleteExpense = async (req, res) => {
   try {
